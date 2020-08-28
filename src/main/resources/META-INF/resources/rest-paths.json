@@ -83,9 +83,9 @@
       } ]
     }
   }, {
-    "method" : "PUT",
+    "method" : "POST",
     "path" : "/",
-    "description" : "Create a new TODO.",
+    "description" : "Create a new TODO (the expireAt field is nullable).",
     "parameters" : [ ],
     "request" : {
       "typeName" : "Request Object (DTO)",
@@ -134,7 +134,7 @@
   }, {
     "method" : "PATCH",
     "path" : "/:id",
-    "description" : "Update a TODO.",
+    "description" : "Update a TODO (the expireAt field is nullable).",
     "parameters" : [ {
       "name" : ":id",
       "type" : "int"
