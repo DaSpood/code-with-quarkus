@@ -2,20 +2,26 @@ package org.sampleproject.entities;
 
 import io.vertx.mutiny.sqlclient.Row;
 
+import java.time.LocalDateTime;
+
 public class Todo {
     public Long id;
     public String title;
     public String description;
-    public Date expireAt;
-    public Date createdAt;
-    public Date updatedAt;
-    public Date doneAt;
-    public int version;
+    public LocalDateTime expireAt;
+    public LocalDateTime createdAt;
+    public LocalDateTime updatedAt;
+    public LocalDateTime doneAt;
+    public Integer version;
 
     public Todo() {}
 
-    public Todo(Long id, String title, String desc,
-                Date expireAt, Date createdAt, Date updatedAt, Date doneAt,
+    public Todo(Long id, String title,
+                String desc,
+                LocalDateTime expireAt,
+                LocalDateTime createdAt,
+                LocalDateTime updatedAt,
+                LocalDateTime doneAt,
                 int version) {
         this.id = id;
         this.title = title;
@@ -28,13 +34,13 @@ public class Todo {
     }
 
     private static Todo from(Row row) {
-        return new Fruit(row.getLong("id"),
+        return new Todo(row.getLong("id"),
                 row.getString("title"),
                 row.getString("description"),
-                row.getDate("expireAt"),
-                row.getDate("createdAt"),
-                row.getDate("updatedAt"),
-                row.getDate("doneAt"),
-                row.getInt("version"))
+                row.getLocalDateTime("expireAt"),
+                row.getLocalDateTime("createdAt"),
+                row.getLocalDateTime("updatedAt"),
+                row.getLocalDateTime("doneAt"),
+                row.getInteger("version"));
     }
 }
