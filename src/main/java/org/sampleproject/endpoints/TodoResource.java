@@ -1,12 +1,13 @@
 package org.sampleproject.endpoints;
 
+import org.sampleproject.entities.Todo;
+import org.sampleproject.repositories.TodoRepository;
+
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.vertx.mutiny.pgclient.PgPool;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -25,28 +26,23 @@ import java.net.URI;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class TodoResource {
-    @Inject
-    io.vertx.mutiny.pgclient.PgPool client;
+    private final TodoRepository repository;
 
     @Inject
-    @ConfigProperty(name = "sampleproject.schema.create", defaultValue = "true")
-    boolean schemaCreate;
-
-    @PostConstruct
-    void config() {
-        if (schemaCreate) {
-            initdb();
-        }
-    }
-
-    private void initdb() {
-        client.query("DROP TABLE IF EXISTS todos").execute()
-                .flatMap(r -> client.query("CREATE TABLE todos (id SERIAL PRIMARY KEY, title VARCHAR(100) NOT NULL, description TEXT, expireAt TIMESTAMP, createdAt TIMESTAMP NOT NULL, updatedAt TIMESTAMP NOT NULL, doneAt TIMESTAMP, version SMALLINT NOT NULL)").execute())
-                .await().indefinitely();
+    public TodoResource(TodoRepository repository) {
+        this.repository = repository;
     }
 
     @GET
-    public String get() {
-        return "{\"test\":\"success\"}";
+    public Multi<Todo> get() {
+        return repository.findAll();
+    }
+
+    @GET
+    @Path("{id}")
+    public Uni<Response> getSingle(@PathParam Integer id) {
+        return repository.findById(id)
+                .onItem().transform(todo -> todo != null ? Response.ok(todo) : Response.status(Status.NOT_FOUND))
+                .onItem().transform(ResponseBuilder::build);
     }
 }
