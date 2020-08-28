@@ -9,7 +9,7 @@
     "response" : {
       "typeName" : "Response Object (DTO)",
       "fields" : [ {
-        "name" : "todos",
+        "name" : null,
         "type" : {
           "typeName" : "List<ELEMENT_TYPE>",
           "internalTypes" : {
@@ -38,7 +38,7 @@
                 "type" : "Date"
               }, {
                 "name" : "version",
-                "type" : "String"
+                "type" : "int"
               } ]
             }
           }
@@ -79,20 +79,17 @@
         "type" : "Date"
       }, {
         "name" : "version",
-        "type" : "String"
+        "type" : "int"
       } ]
     }
   }, {
     "method" : "POST",
     "path" : "/",
-    "description" : "Create a new TODO (the expireAt field is nullable).",
+    "description" : "Create a new TODO (only 'title' is compulsory).",
     "parameters" : [ ],
     "request" : {
       "typeName" : "Request Object (DTO)",
       "fields" : [ {
-        "name" : "id",
-        "type" : "int"
-      }, {
         "name" : "title",
         "type" : "String"
       }, {
@@ -105,36 +102,12 @@
     },
     "response" : {
       "typeName" : "Response Object (DTO)",
-      "fields" : [ {
-        "name" : "id",
-        "type" : "int"
-      }, {
-        "name" : "title",
-        "type" : "String"
-      }, {
-        "name" : "description",
-        "type" : "String"
-      }, {
-        "name" : "expireAt",
-        "type" : "Date"
-      }, {
-        "name" : "createdAt",
-        "type" : "Date"
-      }, {
-        "name" : "updatedAt",
-        "type" : "Date"
-      }, {
-        "name" : "doneAt",
-        "type" : "Date"
-      }, {
-        "name" : "version",
-        "type" : "String"
-      } ]
+      "fields" : [ ]
     }
   }, {
     "method" : "PATCH",
     "path" : "/:id",
-    "description" : "Update a TODO (the expireAt field is nullable).",
+    "description" : "Update a TODO (only 'title' is compulsory).",
     "parameters" : [ {
       "name" : ":id",
       "type" : "int"
@@ -142,9 +115,6 @@
     "request" : {
       "typeName" : "Request Object (DTO)",
       "fields" : [ {
-        "name" : "id",
-        "type" : "int"
-      }, {
         "name" : "title",
         "type" : "String"
       }, {
@@ -186,7 +156,7 @@
   }, {
     "method" : "PATCH",
     "path" : "/:id/setexpire",
-    "description" : "Change the expiration date of the specified TODO (the expireAt field is nullable).",
+    "description" : "Change the expiration date of the specified TODO (can be null).",
     "parameters" : [ {
       "name" : ":id",
       "type" : "int"
