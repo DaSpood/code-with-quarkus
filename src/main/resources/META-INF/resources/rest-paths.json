@@ -1,0 +1,280 @@
+[ {
+  "basePath" : "/todo",
+  "endpoints" : [ {
+    "method" : "GET",
+    "path" : "/",
+    "description" : "Get all TODOs.",
+    "parameters" : [ ],
+    "request" : null,
+    "response" : {
+      "typeName" : "Response Object (DTO)",
+      "fields" : [ {
+        "name" : "todos",
+        "type" : {
+          "typeName" : "List<ELEMENT_TYPE>",
+          "internalTypes" : {
+            "ELEMENT_TYPE" : {
+              "typeName" : "Object",
+              "fields" : [ {
+                "name" : "id",
+                "type" : "int"
+              }, {
+                "name" : "title",
+                "type" : "String"
+              }, {
+                "name" : "description",
+                "type" : "String"
+              }, {
+                "name" : "expireAt",
+                "type" : "Date"
+              }, {
+                "name" : "createdAt",
+                "type" : "Date"
+              }, {
+                "name" : "updatedAt",
+                "type" : "Date"
+              }, {
+                "name" : "doneAt",
+                "type" : "Date"
+              }, {
+                "name" : "version",
+                "type" : "String"
+              } ]
+            }
+          }
+        }
+      } ]
+    }
+  }, {
+    "method" : "GET",
+    "path" : "/:id",
+    "description" : "Get one specified TODO.",
+    "parameters" : [ {
+      "name" : ":id",
+      "type" : "int"
+    } ],
+    "request" : null,
+    "response" : {
+      "typeName" : "Response Object (DTO)",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "int"
+      }, {
+        "name" : "title",
+        "type" : "String"
+      }, {
+        "name" : "description",
+        "type" : "String"
+      }, {
+        "name" : "expireAt",
+        "type" : "Date"
+      }, {
+        "name" : "createdAt",
+        "type" : "Date"
+      }, {
+        "name" : "updatedAt",
+        "type" : "Date"
+      }, {
+        "name" : "doneAt",
+        "type" : "Date"
+      }, {
+        "name" : "version",
+        "type" : "String"
+      } ]
+    }
+  }, {
+    "method" : "PUT",
+    "path" : "/",
+    "description" : "Create a new TODO.",
+    "parameters" : [ ],
+    "request" : {
+      "typeName" : "Request Object (DTO)",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "int"
+      }, {
+        "name" : "title",
+        "type" : "String"
+      }, {
+        "name" : "description",
+        "type" : "String"
+      }, {
+        "name" : "expireAt",
+        "type" : "Date"
+      } ]
+    },
+    "response" : {
+      "typeName" : "Response Object (DTO)",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "int"
+      }, {
+        "name" : "title",
+        "type" : "String"
+      }, {
+        "name" : "description",
+        "type" : "String"
+      }, {
+        "name" : "expireAt",
+        "type" : "Date"
+      }, {
+        "name" : "createdAt",
+        "type" : "Date"
+      }, {
+        "name" : "updatedAt",
+        "type" : "Date"
+      }, {
+        "name" : "doneAt",
+        "type" : "Date"
+      }, {
+        "name" : "version",
+        "type" : "String"
+      } ]
+    }
+  }, {
+    "method" : "PATCH",
+    "path" : "/:id",
+    "description" : "Update a TODO.",
+    "parameters" : [ {
+      "name" : ":id",
+      "type" : "int"
+    } ],
+    "request" : {
+      "typeName" : "Request Object (DTO)",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "int"
+      }, {
+        "name" : "title",
+        "type" : "String"
+      }, {
+        "name" : "description",
+        "type" : "String"
+      }, {
+        "name" : "expireAt",
+        "type" : "Date"
+      } ]
+    },
+    "response" : {
+      "typeName" : "Response Object (DTO)",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "int"
+      }, {
+        "name" : "title",
+        "type" : "String"
+      }, {
+        "name" : "description",
+        "type" : "String"
+      }, {
+        "name" : "expireAt",
+        "type" : "Date"
+      }, {
+        "name" : "createdAt",
+        "type" : "Date"
+      }, {
+        "name" : "updatedAt",
+        "type" : "Date"
+      }, {
+        "name" : "doneAt",
+        "type" : "Date"
+      }, {
+        "name" : "version",
+        "type" : "String"
+      } ]
+    }
+  }, {
+    "method" : "PATCH",
+    "path" : "/:id/setexpire",
+    "description" : "Change the expiration date of the specified TODO (the expireAt field is nullable).",
+    "parameters" : [ {
+      "name" : ":id",
+      "type" : "int"
+    } ],
+    "request" : {
+      "typeName" : "Request Object (DTO)",
+      "fields" : [ {
+        "name" : "expireAt",
+        "type" : "Date"
+      } ]
+    },
+    "response" : {
+      "typeName" : "Response Object (DTO)",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "int"
+      }, {
+        "name" : "title",
+        "type" : "String"
+      }, {
+        "name" : "description",
+        "type" : "String"
+      }, {
+        "name" : "expireAt",
+        "type" : "Date"
+      }, {
+        "name" : "createdAt",
+        "type" : "Date"
+      }, {
+        "name" : "updatedAt",
+        "type" : "Date"
+      }, {
+        "name" : "doneAt",
+        "type" : "Date"
+      }, {
+        "name" : "version",
+        "type" : "String"
+      } ]
+    }
+  }, {
+    "method" : "PATCH",
+    "path" : "/:id/done",
+    "description" : "Mark the specified TODO as done.",
+    "parameters" : [ {
+      "name" : ":id",
+      "type" : "int"
+    } ],
+    "request" : null,
+    "response" : {
+      "typeName" : "Response Object (DTO)",
+      "fields" : [ {
+        "name" : "id",
+        "type" : "int"
+      }, {
+        "name" : "title",
+        "type" : "String"
+      }, {
+        "name" : "description",
+        "type" : "String"
+      }, {
+        "name" : "expireAt",
+        "type" : "Date"
+      }, {
+        "name" : "createdAt",
+        "type" : "Date"
+      }, {
+        "name" : "updatedAt",
+        "type" : "Date"
+      }, {
+        "name" : "doneAt",
+        "type" : "Date"
+      }, {
+        "name" : "version",
+        "type" : "String"
+      } ]
+    }
+  }, {
+    "method" : "DELETE",
+    "path" : "/:id",
+    "description" : "Delete the specified TODO.",
+    "parameters" : [ {
+      "name" : ":id",
+      "type" : "int"
+    } ],
+    "request" : null,
+    "response" : {
+      "typeName" : "Response Object (DTO)",
+      "fields" : [ ]
+    }
+  } ]
+} ]
