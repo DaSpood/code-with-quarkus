@@ -5,7 +5,7 @@ import io.vertx.mutiny.sqlclient.Row;
 import java.time.LocalDateTime;
 
 public class Todo {
-    public Long id;
+    public Integer id;
     public String title;
     public String description;
     public LocalDateTime expireAt;
@@ -16,7 +16,8 @@ public class Todo {
 
     public Todo() {}
 
-    public Todo(Long id, String title,
+    public Todo(Integer id,
+                String title,
                 String desc,
                 LocalDateTime expireAt,
                 LocalDateTime createdAt,
@@ -33,8 +34,8 @@ public class Todo {
         this.version = version;
     }
 
-    private static Todo from(Row row) {
-        return new Todo(row.getLong("id"),
+    public static Todo from(Row row) {
+        return new Todo(row.getInteger("id"),
                 row.getString("title"),
                 row.getString("description"),
                 row.getLocalDateTime("expireAt"),
