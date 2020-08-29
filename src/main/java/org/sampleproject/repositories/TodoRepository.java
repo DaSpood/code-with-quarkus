@@ -15,8 +15,7 @@ import javax.inject.Inject;
 
 @ApplicationScoped
 public class TodoRepository {
-    private final PgPool client;
-
+    /// This section is used to drop and create the 'todos' table uppon startup
     @Inject
     @ConfigProperty(name = "sampleproject.schema.create", defaultValue = "true")
     boolean schemaCreate;
@@ -28,15 +27,18 @@ public class TodoRepository {
         }
     }
 
+    private void initdb() {
+        client.query("DROP TABLE IF EXISTS todos").execute()
+                .flatMap(r -> client.query("CREATE TABLE todos (id SERIAL PRIMARY KEY, title VARCHAR(100) NOT NULL, description TEXT, expire_at TIMESTAMP, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, done_at TIMESTAMP, version SMALLINT NOT NULL DEFAULT 1)").execute())
+                .await().indefinitely();
+    }
+    /// ---
+
+    private final PgPool client;
+
     @Inject
     public TodoRepository(PgPool client) {
         this.client = client;
-    }
-
-    private void initdb() {
-        client.query("DROP TABLE IF EXISTS todos").execute()
-                .flatMap(r -> client.query("CREATE TABLE todos (id SERIAL PRIMARY KEY, title TEXT NOT NULL, description TEXT, expire_at TIMESTAMP, created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, done_at TIMESTAMP, version SMALLINT NOT NULL DEFAULT 1)").execute())
-                .await().indefinitely();
     }
 
     public Multi<Todo> findAll() {
@@ -52,6 +54,8 @@ public class TodoRepository {
     }
 
     public Uni<Integer> insert(Todo todo) {
+        if (todo.title == null || todo.title.length() > 100)
+            return Uni.createFrom().item(-1);
         return client.preparedQuery("INSERT INTO todos (title, description, expire_at) VALUES ($1, $2, $3) RETURNING (id)").execute(Tuple.of(todo.title, todo.description, todo.expireAt))
                 .onItem().transform(pgRowSet -> pgRowSet.iterator().next().getInteger("id"));
     }
