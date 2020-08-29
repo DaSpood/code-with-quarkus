@@ -1,12 +1,32 @@
 # code-with-quarkus project
 
+The base project was generated using: https://code.quarkus.io/ .
+
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
+## Launching the database
+
+The project uses a PostGreSQL database, that can be started in a docker container with the script `/db/launch.sh`.
+
+The application will drop and create the table upon startup.
+
+## Launching the test-suite
+
+The API was tested in its dev and packaged versions using Postman, which can be downloaded from: https://www.postman.com/ .
+
+From Postman, you can `Import` the file `/postman/testsuite.postman_collection.json`.
+
+The tests in the collection must be run in order, and the 'todos' table must be empty.
+
+## API endpoints
+
+The available endpoints are listed in the file `/src/main/resources/META-INF/resources/rest-paths.json`.
+
 ## Running the application in dev mode
 
-You can run your application in dev mode that enables live coding using:
+You can run the application in dev mode that enables live coding using:
 ```
 ./mvnw quarkus:dev
 ```
