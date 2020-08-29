@@ -26,16 +26,16 @@
                 "type" : "String"
               }, {
                 "name" : "expireAt",
-                "type" : "Date"
+                "type" : "LocalDateTime"
               }, {
                 "name" : "createdAt",
-                "type" : "Date"
+                "type" : "LocalDateTime"
               }, {
                 "name" : "updatedAt",
-                "type" : "Date"
+                "type" : "LocalDateTime"
               }, {
                 "name" : "doneAt",
-                "type" : "Date"
+                "type" : "LocalDateTime"
               }, {
                 "name" : "version",
                 "type" : "int"
@@ -67,16 +67,16 @@
         "type" : "String"
       }, {
         "name" : "expireAt",
-        "type" : "Date"
+        "type" : "LocalDateTime"
       }, {
         "name" : "createdAt",
-        "type" : "Date"
+        "type" : "LocalDateTime"
       }, {
         "name" : "updatedAt",
-        "type" : "Date"
+        "type" : "LocalDateTime"
       }, {
         "name" : "doneAt",
-        "type" : "Date"
+        "type" : "LocalDateTime"
       }, {
         "name" : "version",
         "type" : "int"
@@ -97,7 +97,7 @@
         "type" : "String"
       }, {
         "name" : "expireAt",
-        "type" : "Date"
+        "type" : "LocalDateTime"
       } ]
     },
     "response" : {
@@ -122,36 +122,12 @@
         "type" : "String"
       }, {
         "name" : "expireAt",
-        "type" : "Date"
+        "type" : "LocalDateTime"
       } ]
     },
     "response" : {
       "typeName" : "Response Object (DTO)",
-      "fields" : [ {
-        "name" : "id",
-        "type" : "int"
-      }, {
-        "name" : "title",
-        "type" : "String"
-      }, {
-        "name" : "description",
-        "type" : "String"
-      }, {
-        "name" : "expireAt",
-        "type" : "Date"
-      }, {
-        "name" : "createdAt",
-        "type" : "Date"
-      }, {
-        "name" : "updatedAt",
-        "type" : "Date"
-      }, {
-        "name" : "doneAt",
-        "type" : "Date"
-      }, {
-        "name" : "version",
-        "type" : "String"
-      } ]
+      "fields" : [ ]
     }
   }, {
     "method" : "PATCH",
@@ -165,36 +141,12 @@
       "typeName" : "Request Object (DTO)",
       "fields" : [ {
         "name" : "expireAt",
-        "type" : "Date"
+        "type" : "LocalDateTime"
       } ]
     },
     "response" : {
       "typeName" : "Response Object (DTO)",
-      "fields" : [ {
-        "name" : "id",
-        "type" : "int"
-      }, {
-        "name" : "title",
-        "type" : "String"
-      }, {
-        "name" : "description",
-        "type" : "String"
-      }, {
-        "name" : "expireAt",
-        "type" : "Date"
-      }, {
-        "name" : "createdAt",
-        "type" : "Date"
-      }, {
-        "name" : "updatedAt",
-        "type" : "Date"
-      }, {
-        "name" : "doneAt",
-        "type" : "Date"
-      }, {
-        "name" : "version",
-        "type" : "String"
-      } ]
+      "fields" : [ ]
     }
   }, {
     "method" : "PATCH",
@@ -207,31 +159,7 @@
     "request" : null,
     "response" : {
       "typeName" : "Response Object (DTO)",
-      "fields" : [ {
-        "name" : "id",
-        "type" : "int"
-      }, {
-        "name" : "title",
-        "type" : "String"
-      }, {
-        "name" : "description",
-        "type" : "String"
-      }, {
-        "name" : "expireAt",
-        "type" : "Date"
-      }, {
-        "name" : "createdAt",
-        "type" : "Date"
-      }, {
-        "name" : "updatedAt",
-        "type" : "Date"
-      }, {
-        "name" : "doneAt",
-        "type" : "Date"
-      }, {
-        "name" : "version",
-        "type" : "String"
-      } ]
+      "fields" : [ ]
     }
   }, {
     "method" : "DELETE",
