@@ -56,21 +56,32 @@ public class TodoResource {
     @PATCH
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Uni<Response> edit() {
-        return null; //TODO
+    // For simplicity: all values must be provided or will be considered null (deleted).
+    // Title field is still compulsory.
+    // Using method PATCH instead of PUT because still just an update and not a full replacement.
+    public Uni<Response> edit(@PathParam Integer id, Todo todo) {
+        return repository.update(id, todo)
+                .onItem().transform(modified -> modified == 1 ? Status.NO_CONTENT : (modified == 0 ? Status.NOT_FOUND : Status.BAD_REQUEST))
+                .onItem().transform(status -> Response.status(status).build());
     }
 
     @PATCH
-    @Path("{id}/setexpire")
+    @Path("{id}/expire")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Uni<Response> addexpiry() {
-        return null; //TODO
+    public Uni<Response> setExpiry(@PathParam Integer id, Todo todo) {
+        return repository.updateExpireAt(id, todo.expireAt)
+                .onItem().transform(modified -> modified ? Status.NO_CONTENT : Status.NOT_FOUND)
+                .onItem().transform(status -> Response.status(status).build());
     }
 
     @PATCH
     @Path("{id}/done")
-    public Uni<Response> markdone() {
-        return null; //TODO
+    // For simplicity: not forbidden to mark an already-done TODO done again.
+    // The request will be accepted and the TODO's version and timestamp will be updated accordingly.
+    public Uni<Response> markDone(@PathParam Integer id) {
+        return repository.updateDoneAt(id)
+                .onItem().transform(modified -> modified ? Status.NO_CONTENT : Status.NOT_FOUND)
+                .onItem().transform(status -> Response.status(status).build());
     }
 
     @DELETE
