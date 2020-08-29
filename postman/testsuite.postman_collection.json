@@ -1,0 +1,1317 @@
+{
+	"info": {
+		"_postman_id": "c29a177d-2060-4d81-bebc-52d3c0855b9e",
+		"name": "quarkus_api_testsuite",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TODO",
+			"item": [
+				{
+					"name": "todo_empty_table",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "54a9c534-7cbb-4608-b605-8c50c2c9f62f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Status\", function () {",
+									"    var response = JSON.parse(responseBody);",
+									"    pm.expect(response.length).to.deep.equal(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8b1a3eaa-b5fc-4aff-bfe1-77e789a139a3",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
+									"pm.test(\"Location header exists\", function () { pm.response.to.have.header(\"Location\"); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"first post\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_post_same_title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4000781d-4150-48a3-980d-522a5c8310f7",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
+									"pm.test(\"Location header exists\", function () { pm.response.to.have.header(\"Location\"); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"first post\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_post_all_info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e84e2d2f-ee8b-4805-9048-4284cca41e95",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () { pm.response.to.have.status(201); });",
+									"pm.test(\"Location header exists\", function () { pm.response.to.have.header(\"Location\"); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"full post\",\n    \"description\":\"post with a provided description and expire date\",\n    \"expireAt\":\"2020-09-14 23:42:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_post_bad_expiry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f7820e98-6a5d-4077-8edf-f0338158af3d",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"bad date format\",\n    \"expireAt\":\"this is clearly not a date\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_post_no_title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5b1d4d5a-fe7d-48d1-ab1c-092a15804851",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"description\":\"the title is missing!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_post_title_too_long",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "79697976-cb47-498d-b8e4-8b727e31b936",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"this title is way too long, the pgsql type for that field is a varchar(100) and clearly this is way more than 100 characters so the server should not be able to save that entry and return a BAD-REQUEST response instead of a CREATED response.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "48f82e19-709d-4425-a6f0-82e0e6ebbac4",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Status\", function () {",
+									"    var response = JSON.parse(responseBody);",
+									"    pm.expect(response).to.be.an(\"array\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c27d714c-87c3-4dfc-8241-e44ef319ceeb",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Status\", function () {",
+									"    var response = JSON.parse(responseBody);",
+									"    pm.expect(response.id).to.eql(1);",
+									"    pm.expect(response.title).to.eql(\"first post\");",
+									"    pm.expect(response.description).to.eql(null);",
+									"    pm.expect(response.expireAt).to.eql(null);",
+									"    pm.expect(response.createdAt).to.be.an(\"string\");",
+									"    pm.expect(response.updatedAt).to.be.an(\"string\");",
+									"    pm.expect(response.doneAt).to.eql(null);",
+									"    pm.expect(response.version).to.eql(1);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_id_unknown",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0c8ff303-ad6a-43cd-813a-9825d178d3cc",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () { pm.response.to.have.status(404); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo/12345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"12345"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_id_bad_parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9e9dc123-f57b-4353-8105-9216452c70a1",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () { pm.response.to.have.status(404); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo/NaN",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"NaN"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_update_title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "83e11e8a-2129-4fc1-ba61-c9e34eda2c71",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () { pm.response.to.have.status(204); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"first post with a different title\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo/1/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_update_content_check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6d8560ef-169f-4dc9-bd1f-5afa3692c6bf",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Status\", function () {",
+									"    var response = JSON.parse(responseBody);",
+									"    pm.expect(response.id).to.eql(1);",
+									"    pm.expect(response.title).to.eql(\"first post with a different title\");",
+									"    pm.expect(response.description).to.eql(null);",
+									"    pm.expect(response.expireAt).to.eql(null);",
+									"    pm.expect(response.createdAt).to.be.an(\"string\");",
+									"    pm.expect(response.updatedAt).to.be.an(\"string\");",
+									"    pm.expect(response.doneAt).to.eql(null);",
+									"    pm.expect(response.version).to.eql(2);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_update_all_info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cd40722d-2377-4e9b-9701-78ba504170c5",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () { pm.response.to.have.status(204); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"changing this one again\",\n    \"description\":\"this time adding a description and an expireAt date\",\n    \"expireAt\":\"2020-09-14 23:42:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo/1/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_update_content_check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2eb8e956-08da-4691-a5c0-a97f456583e9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Status\", function () {",
+									"    var response = JSON.parse(responseBody);",
+									"    pm.expect(response.id).to.eql(1);",
+									"    pm.expect(response.title).to.eql(\"changing this one again\");",
+									"    pm.expect(response.description).to.eql(\"this time adding a description and an expireAt date\");",
+									"    pm.expect(response.expireAt).to.eql(\"2020-09-14 23:42:00\");",
+									"    pm.expect(response.createdAt).to.be.an(\"string\");",
+									"    pm.expect(response.updatedAt).to.be.an(\"string\");",
+									"    pm.expect(response.doneAt).to.eql(null);",
+									"    pm.expect(response.version).to.eql(3);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_update_title_delete_other_fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "34a1b9e7-3b45-4241-863a-aa8e88a81e7c",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () { pm.response.to.have.status(204); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"back to just a title\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo/1/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_update_content_check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c508cbfb-85b9-4cc7-bd77-28aff8e923b0",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Status\", function () {",
+									"    var response = JSON.parse(responseBody);",
+									"    pm.expect(response.id).to.eql(1);",
+									"    pm.expect(response.title).to.eql(\"back to just a title\");",
+									"    pm.expect(response.description).to.eql(null);",
+									"    pm.expect(response.expireAt).to.eql(null);",
+									"    pm.expect(response.createdAt).to.be.an(\"string\");",
+									"    pm.expect(response.updatedAt).to.be.an(\"string\");",
+									"    pm.expect(response.doneAt).to.eql(null);",
+									"    pm.expect(response.version).to.eql(4);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_update_no_title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44affee3-6502-400c-bea9-fed4ceca687a",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"missing title\",\n    \"expireAt\":\"2020-09-14 23:42:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_update_title_too_long",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f9733003-7d66-4e5d-9926-45326a897d1c",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\":\"this title is way too long, the pgsql type for that field is a varchar(100) and clearly this is way more than 100 characters so the server should not be able to save that entry and return a BAD-REQUEST response instead of a CREATED response.\",\n    \"description\":\"the title is too long\",\n    \"expireAt\":\"2020-09-14 23:42:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_add_expire",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cd8c1d25-9c4d-4868-bb47-1271ca2ce935",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () { pm.response.to.have.status(204); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"expireAt\":\"2020-09-18 23:42:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo/1/expire",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1",
+								"expire"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_update_content_check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ab53f7db-ebcf-421d-9280-d7be554366ce",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Status\", function () {",
+									"    var response = JSON.parse(responseBody);",
+									"    pm.expect(response.id).to.eql(1);",
+									"    pm.expect(response.title).to.eql(\"back to just a title\");",
+									"    pm.expect(response.description).to.eql(null);",
+									"    pm.expect(response.expireAt).to.eql(\"2020-09-18 23:42:00\");",
+									"    pm.expect(response.createdAt).to.be.an(\"string\");",
+									"    pm.expect(response.updatedAt).to.be.an(\"string\");",
+									"    pm.expect(response.doneAt).to.eql(null);",
+									"    pm.expect(response.version).to.eql(5);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_add_expire_bad_expiry",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "835d5d9e-5be3-416a-92fa-0eb222fe122d",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () { pm.response.to.have.status(400); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"expireAt\":\"9999-99-99 99:99:99\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo/1/expire",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1",
+								"expire"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_add_expire_bad_parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "19c969ae-4cee-4a44-932f-d7aa6692ac00",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () { pm.response.to.have.status(404); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"expireAt\":\"2020-09-18 23:42:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo/12345/expire",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"12345",
+								"expire"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_done",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "51c86ff2-8676-48d8-8c73-7a98a37ea42b",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () { pm.response.to.have.status(204); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "javascript"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo/1/done",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1",
+								"done"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_update_content_check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "816a78ce-3d34-4b09-ab8f-24ac57e29caa",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Status\", function () {",
+									"    var response = JSON.parse(responseBody);",
+									"    pm.expect(response.id).to.eql(1);",
+									"    pm.expect(response.title).to.eql(\"back to just a title\");",
+									"    pm.expect(response.description).to.eql(null);",
+									"    pm.expect(response.expireAt).to.eql(\"2020-09-18 23:42:00\");",
+									"    pm.expect(response.createdAt).to.be.an(\"string\");",
+									"    pm.expect(response.updatedAt).to.be.an(\"string\");",
+									"    pm.expect(response.doneAt).to.be.an(\"string\");",
+									"    pm.expect(response.version).to.eql(6);",
+									"});",
+									"",
+									"// The test suite is short enough that all the requests may be finished within a second, which is the accuracy of the API's timestamps",
+									"// This line ensures the next update will happen a whole second after this one, this way updatedAt can be properly tested next",
+									"new Promise(r => setTimeout(r, 1000));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_done_same_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "db408711-c854-493f-813d-19ae4852bf3a",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () { pm.response.to.have.status(204); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "javascript"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo/1/done",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1",
+								"done"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_done_bad_parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "50c4b4b4-a8a1-46d5-8d00-cbe279fdfab7",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () { pm.response.to.have.status(404); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "javascript"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/todo/12345/done",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"12345",
+								"done"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_update_date_check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "86074f49-0563-42d6-9737-e7387e4d0b6a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Status\", function () {",
+									"    var response = JSON.parse(responseBody);",
+									"    pm.expect(response.createdAt).to.not.be.eql(null);",
+									"    pm.expect(response.updatedAt).to.not.be.eql(null);",
+									"    pm.expect(response.doneAt).to.not.be.eql(null);",
+									"    pm.expect(response.updatedAt).to.not.eql(response.createdAt);",
+									"    pm.expect(response.updatedAt).to.be.eql(response.doneAt);",
+									"    pm.expect(response.version).to.eql(7);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4346d3f6-84c6-4e43-85a8-ca37315621ce",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () { pm.response.to.have.status(204); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_delete_same_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3a8b887d-f73e-4987-9085-2ee7ad78637d",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () { pm.response.to.have.status(404); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_delete_not_existing",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d6ef325b-63c0-43a5-988c-c4b3c5765301",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () { pm.response.to.have.status(404); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo/12345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"12345"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "todo_delete_bad_parameter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "56a629ad-cbea-4276-9cfb-2c4318a1670d",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () { pm.response.to.have.status(404); });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/todo/NaN",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"todo",
+								"NaN"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "01160683-9bb6-41f7-81dc-cfb0a742bb2c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9a350e98-7aa8-43a6-a954-9f73be0f3b34",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
