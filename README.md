@@ -8,7 +8,7 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 
 ## Launching the database
 
-The project uses a PostGreSQL database, that can be started in a docker container with the script `/db/launch.sh`.
+The project uses a PostGreSQL database, that can be started in a docker container with the script `src/main/resources/db/launch.sh`.
 
 The application will drop and create the table upon startup.
 
@@ -16,13 +16,13 @@ The application will drop and create the table upon startup.
 
 The API was tested in its dev and packaged versions using Postman, which can be downloaded from: https://www.postman.com/ .
 
-From Postman, you can `Import` the file `/postman/testsuite.postman_collection.json`.
+From Postman, you can `Import` the file `src/test/postman/testsuite.postman_collection.json`.
 
 The tests in the collection must be run in order, and the 'todos' table must be empty.
 
 ## API endpoints
 
-The available endpoints are listed in the file `/src/main/resources/META-INF/resources/rest-paths.json`.
+The available endpoints are listed in the file `/src/main/resources/doc/rest-paths.json`.
 
 ## Running the application in dev mode
 
