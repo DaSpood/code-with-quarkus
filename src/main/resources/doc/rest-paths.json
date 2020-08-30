@@ -84,7 +84,7 @@
     }
   }, {
     "method" : "POST",
-    "path" : "/",
+    "path" : "/admin/new",
     "description" : "Create a new TODO (only 'title' is compulsory).",
     "parameters" : [ ],
     "request" : {
@@ -163,7 +163,7 @@
     }
   }, {
     "method" : "DELETE",
-    "path" : "/:id",
+    "path" : "/admin/:id",
     "description" : "Delete the specified TODO.",
     "parameters" : [ {
       "name" : ":id",
