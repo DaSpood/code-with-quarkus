@@ -6,6 +6,12 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
+## Launching the Keycloak server
+
+The project uses a Keycloak server for OIDC, that can be started in a docker container with the script `src/main/resources/oidc/launch.sh`.
+
+To configure the server, login to localhost:8180/auth using the credentials "admin;admin", then import the realm `src/main/resources/oidc/quarkus-realm.json`.
+
 ## Launching the database
 
 The project uses a PostGreSQL database, that can be started in a docker container with the script `src/main/resources/db/launch.sh`.
@@ -14,11 +20,7 @@ The application will drop and create the table upon startup.
 
 ## Launching the test-suite
 
-The API was tested in its dev and packaged versions using Postman, which can be downloaded from: https://www.postman.com/ .
-
-From Postman, you can `Import` the file `src/test/postman/testsuite.postman_collection.json`.
-
-The tests in the collection must be run in order, and the 'todos' table must be empty.
+The postman test-suite has not been updated to support the new OIDC requirements, thus cannot be used on this branch.
 
 ## API endpoints
 
